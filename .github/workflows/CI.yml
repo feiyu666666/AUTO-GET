@@ -58,7 +58,7 @@ jobs:
       - name: process
         env:
             MYURL: ${{ secrets.url }}
-      - run: |
+        run: |
           python -c "import requests
           import json
           d={}
