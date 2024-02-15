@@ -44,6 +44,7 @@ jobs:
         run: |
           python -c "import requests
           import json
+          import os
           d={}
           url=os.environ['MYURL']
           for i in json.loads(requests.get(url).text):
