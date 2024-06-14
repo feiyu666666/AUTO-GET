@@ -58,6 +58,7 @@ jobs:
       - name: process
         env:
             MYURL: ${{ secrets.url }}
+            MyAuthorization: ${{ secrets.myauthorization }}
         run: |
           git config --local user.name github-actions[bot]
           git config --local user.email 41898282+github-actions[bot]@users.noreply.github.com
@@ -66,7 +67,23 @@ jobs:
           import os
           d={}
           url=os.environ['MYURL']
-          for i in json.loads(requests.get(url).text):
+          MyAuthorization=os.environ['MyAuthorization']
+          headers={'Authorization':MyAuthorization}
+          r=requests.get(url+'/steam', headers=headers).text
+          myd=json.loads(r)
+          for i in myd['results']:
+              d[i['username']]=[i['password'],None]
+          r=requests.get(url+'/steam2', headers=headers).text
+          myd=json.loads(r)
+          for i in myd['results']:
+              d[i['username']]=[i['password'],None]
+          r=requests.get(url+'/mysteamlib', headers=headers).text
+          myd=json.loads(r)
+          for i in myd['results']:
+              d[i['username']]=[i['password'],None]
+          r=requests.get(url+'/feilifeili', headers=headers).text
+          myd=json.loads(r)
+          for i in myd['results']:
               d[i['username']]=[i['password'],None]
           with open('/u.json','w') as f:
               f.write(json.dumps(d))"
