@@ -85,7 +85,7 @@ jobs:
           myd=json.loads(r)
           for i in myd['results']:
               d[i['username']]=[i['password'],None]
-          print("*"*10,len(d),"*"*10)
+          print('*'*10,len(d),'*'*10)
           with open('/u.json','w') as f:
               f.write(json.dumps(d))"
           python main.py -l ${{ github.event.inputs.level || 'INFO' }} -p ${{ github.event.inputs.pool || 8 }} -r ${{ github.event.inputs.retry || 3 }} -t ${{ github.event.inputs.time || 1 }} -k ${{ secrets.KEY }} -u ${{ github.event.inputs.args }}
